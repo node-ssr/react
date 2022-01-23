@@ -1,0 +1,59 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "react ssr",
+  "main": "dist/server/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run server:build && npm run client:build",
+    "prod": "npm run server:prod && npm run client:prod",
+    "server:build": "webpack --progress --config scripts/webpack.server.js",
+    "server:watch": "webpack --watch --progress --config scripts/webpack.server.js",
+    "server:prod": "webpack --mode production --progress --config scripts/webpack.server.js",
+    "client:build": "webpack --progress --config scripts/webpack.client.js",
+    "client:prod": "webpack --mode production --progress --config scripts/webpack.client.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-ssr/react.git"
+  },
+  "keywords": [],
+  "author": {
+    "email": "themonsterdev@gmail.com",
+    "name": "ToToRiina"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/node-ssr/react/issues"
+  },
+  "homepage": "https://github.com/node-ssr/react#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.5.2",
+    "nodemon-webpack-plugin": "^4.7.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1",
+    "sass": "^1.49.0",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3",
+    "webpack-manifest-plugin": "^4.1.1",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

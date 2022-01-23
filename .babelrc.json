@@ -1,0 +1,19 @@
+{
+  "presets": [
+    // "@babel/preset-env",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ],
+    
+    // https://babeljs.io/docs/en/babel-preset-typescript
+    "@babel/preset-typescript",
+
+    // https://babeljs.io/docs/en/babel-preset-react
+    "@babel/preset-react"
+  ]
+}
