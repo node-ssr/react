@@ -3,6 +3,7 @@ const { resolve } = require('path')
 const { DefinePlugin } = require('webpack')
 const { merge } = require('webpack-merge')
 
+const ESLintPlugin = require('eslint-webpack-plugin')
 const HTMLWebpackPlugins = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
@@ -50,6 +51,11 @@ module.exports = function (info, { mode }) {
     },
   
     plugins: [
+
+      new ESLintPlugin({
+        extensions: ['ts', 'tsx'],
+        files: ['./src/client/**/*.tsx']
+      }),
   
       new DefinePlugin({
         'process.env.REACT_ENV': '"client"',

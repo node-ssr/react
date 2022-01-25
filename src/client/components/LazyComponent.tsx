@@ -1,27 +1,28 @@
 import React, { Component, createElement, ReactNode } from 'react'
 
-export default function LazyComponent(
+export default async function LazyComponent(
   callback: () => Promise<{ default: ReactNode }>
 ) {
-  return class extends Component {
+  const { default: Element } = await callback()
+
+  return class LazyComponent extends Component {
 
     public state = {
-      Component: null
+      Element: null
     }
 
     public async componentDidMount() : Promise<void> {
       const { state } = this
 
-      if (!state.Component) {
-        const { default: Component } = await callback()
-        this.setState({ Component })
+      if (!state.Element) {
+        this.setState({ Element })
       }
     }
 
     public render() : ReactNode {
       const { state, props } = this
-      if (state.Component)
-        return createElement(state.Component, props)
+      if (state.Element)
+        return createElement(state.Element, props)
       return <div>Loading page...</div>
     }
   }

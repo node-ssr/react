@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: variables.$primary;
+  color: variables.$on-primary;
+  margin: 0;
+}
+
+h1 {
+  color: variables.$on-primary;
+  margin: 0;
+}

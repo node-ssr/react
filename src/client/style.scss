@@ -1,10 +1,6 @@
-body {
-  background-color: #fff;
-  color: #000;
-  margin: 0;
-}
+@use 'sass/variables' with (
+  $primary: #fff,
+  $on-primary: #000,
+);
 
-h1 {
-  color: green;
-  margin: 0;
-}
+@import 'sass/base';

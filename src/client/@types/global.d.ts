@@ -1,5 +1,5 @@
 interface Navigator extends Navigator {
   userAgentData: {
-    brands: Array<string>
+    brands: Array<{brand: string}>
   }
 }

@@ -17,12 +17,14 @@ if (isProduction) {
   const webpackDevMiddleware = require('webpack-dev-middleware')
 
   // import la config client webpack
-  const webpackClientConfig = require('../../scripts/webpack.client.js')(null, {
+  const config = require('../../scripts/webpack.client.js')(null, {
     mode: process.env.NODE_ENV
   })
 
+  config.output.publicPath = '/dev'
+
   // récupère le compiler webpack pour la config définit
-  const webpackClientCompiler = webpack(webpackClientConfig)
+  const webpackClientCompiler = webpack(config)
 
   // config le module webpack-dev-middleware
   const webpackClientMiddlewareConfig = {
@@ -30,20 +32,20 @@ if (isProduction) {
     serverSideRender: true,
 
     // Instructs the module to write files to the configured location on disk as specified in your webpack configuration.
-    writeToDisk: true,
+    writeToDisk (filename: string) {
+      return /index.html/.test(filename)
+    },
 
     // The public path that the middleware is bound to.
-    publicPath: '/assets'
+    publicPath: config.output.publicPath
   }
 
-  // Créer le middleware webpack
-  const webpackMiddleware = webpackDevMiddleware(
-    webpackClientCompiler,
-    webpackClientMiddlewareConfig
+  app.use(
+    webpackDevMiddleware(
+      webpackClientCompiler,
+      webpackClientMiddlewareConfig
+    )
   )
-
-  // ajout le middleware à express
-  app.use(webpackMiddleware)
 }
 
 app.use(
@@ -61,17 +63,21 @@ app.get('*', async function (req, res) {
     'utf8'
   )
 
-  const reactApp = render(req.originalUrl)
+  const context = {
+    url: req.originalUrl
+  }
+
+  const reactApp = await render(context)
 
   const html = template.replace(
     '<div id="root"></div>',
     `<div id="root">${reactApp}</div>`
   )
-  
-  return res
-    .set('Content-Type', 'text/html')
-    .status(200)
-    .end(html)
+
+  res.set('Content-Type', 'text/html')
+  res.status(200)
+  res.write(html)
+  res.end()
 })
 
 app.listen(8000, function () {
